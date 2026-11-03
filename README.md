@@ -68,3 +68,12 @@ Send the token as `Authorization: Bearer <token>`.
 ## Data models
 - **User**: name, email (unique), password (bcrypt hash)
 - **Employee**: name, email (unique), phone, department, designation, salary, joiningDate, createdBy
+
+## Deploying on Netlify
+The repo root holds the Netlify setup:
+- `netlify.toml` builds the React app in `frontend/` and publishes `frontend/dist`, and sends every page URL to `index.html` so routes like `/login` load the app.
+- `netlify/functions/api.ts` serves the whole `/api/*` API listed above as a Netlify Function.
+- Data lives in Netlify Database (managed Postgres). The schema is in `db/schema.ts`, and migrations in `netlify/database/migrations/` run automatically on deploy.
+- Optional environment variables: `JWT_SECRET` (if you leave it unset, a random secret is generated and stored in the database) and `JWT_EXPIRES_IN` (default `7d`).
+
+Run it locally with `netlify dev`. The `backend/` Express + MongoDB server is kept only for running outside Netlify.
