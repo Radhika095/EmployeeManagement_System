@@ -3,7 +3,7 @@ import axios from "axios";
 // Use the Express API directly by default. Set VITE_API_URL only when deploying elsewhere.
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
-  timeout: 20000,
+  timeout: 60000,
 });
 
 api.interceptors.request.use((config) => {
