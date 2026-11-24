@@ -1,0 +1,12 @@
+const express = require("express");
+const router = express.Router();
+const c = require("../controllers/leaveController");
+const { protect, authorize } = require("../middleware/authMiddleware");
+router.use(protect);
+router.get("/bootstrap", c.bootstrap);
+router.post("/requests", c.createRequest);
+router.patch("/requests/:id/review", authorize("admin"), c.reviewRequest);
+router.post("/types", authorize("admin"), c.createType);
+router.post("/holidays", authorize("admin"), c.createHoliday);
+router.put("/balances", authorize("admin"), c.updateBalance);
+module.exports = router;

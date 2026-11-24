@@ -1,0 +1,10 @@
+const express=require("express");
+const router=express.Router();
+const c=require("../controllers/payrollController");
+const {protect,authorize}=require("../middleware/authMiddleware");
+router.use(protect);
+router.get("/",c.list);
+router.post("/structures",authorize("admin"),c.saveStructure);
+router.post("/generate",authorize("admin"),c.generate);
+router.get("/bank-advice",authorize("admin"),c.bankAdvice);
+module.exports=router;
